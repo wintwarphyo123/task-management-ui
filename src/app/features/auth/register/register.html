@@ -1,0 +1,70 @@
+<div class="min-h-screen flex items-center justify-center bg-slate-900 p-4">
+    <div class="w-full max-w-md bg-white shadow-2xl rounded-3xl p-8">
+
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div
+                class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600 text-white shadow-md mb-3">
+                <i class="pi pi-check-square text-xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800">Create an Account</h2>
+            <p class="text-sm text-slate-500 mt-1">Get started with Task Manager</p>
+        </div>
+
+        <!-- Error Banner -->
+        @if (errorMessage) {
+        <div class="mb-5">
+            <p-message severity="error" styleClass="w-full">
+                {{ errorMessage }}
+            </p-message>
+        </div>
+        }
+
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="flex flex-col gap-4">
+
+            <!-- Username Input -->
+            <div class="flex flex-col gap-1.5">
+                <label for="userName" class="font-medium text-slate-700 text-sm">Username</label>
+                <p-iconfield class="w-full">
+                    <p-inputicon class="pi pi-user"></p-inputicon>
+                    <input pInputText id="userName" type="text" formControlName="userName" placeholder="johndoe"
+                        class="w-full" required />
+                </p-iconfield>
+            </div>
+
+            <!-- Email Input -->
+            <div class="flex flex-col gap-1.5">
+                <label for="email" class="font-medium text-slate-700 text-sm">Email Address</label>
+                <p-iconfield class="w-full">
+                    <p-inputicon class="pi pi-envelope"></p-inputicon>
+                    <input pInputText id="email" type="email" formControlName="email" placeholder="name@company.com"
+                        class="w-full" required />
+                </p-iconfield>
+            </div>
+
+            <!-- Password Input -->
+            <div class="flex flex-col gap-1.5">
+                <label for="password" class="font-medium text-slate-700 text-sm">Password</label>
+                <p-iconfield class="w-full">
+
+                    <p-inputicon class="pi pi-lock"></p-inputicon>
+                    <input pInputPassword id="password" type="{{ showPassword ? 'text' : 'password' }}" formControlName="password"
+                        placeholder="••••••••" class="w-full" required />
+                    <p-inputicon [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'" class="cursor-pointer"
+                        (click)="togglePasswordVisibility()"></p-inputicon>
+                </p-iconfield>
+            </div>
+
+            <!-- Submit Button directive -->
+            <button pButton type="submit" label="Sign Up" icon="pi pi-user-plus" [loading]="isloading"
+                class="w-full mt-2">Sign Up
+            </button>
+
+            <!-- Sign In Footer -->
+            <div class="text-center text-sm text-slate-600 mt-2">
+                Already have an account?
+                <a routerLink="/login" class="text-indigo-600 hover:underline font-medium ml-1">Sign In</a>
+            </div>
+        </form>
+    </div>
+</div>

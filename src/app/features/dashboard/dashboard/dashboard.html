@@ -1,0 +1,371 @@
+<p-confirmdialog />
+
+<div class="w-full max-w-[1600px] mx-auto bg-[#8B8CD9] shadow-2xl flex flex-col md:flex-row overflow-hidden text-white min-h-screen md:rounded-3xl my-0 md:my-4">
+
+    <!-- NAVIGATION BAR (Mobile Bottom / Desktop Side) -->
+    <aside class="order-2 md:order-1 w-full md:w-20 bg-[#7B7CCB] flex flex-row md:flex-col items-center justify-between px-6 py-3 md:px-0 md:py-8 border-t md:border-t-0 md:border-r border-white/10 shrink-0 z-20">
+        
+        <!-- Brand & Nav Group -->
+        <div class="flex flex-row md:flex-col items-center gap-4 md:gap-8 w-full md:w-auto justify-around md:justify-start">
+            <!-- Brand Logo (Hidden on small mobile screens to save bar space, shown on desktop) -->
+            <div class="hidden md:flex w-10 h-10 rounded-full border-2 border-white/80 items-center justify-center shadow-sm">
+                <i class="pi pi-compass text-xl"></i>
+            </div>
+
+            <!-- Menu Icons -->
+            <nav class="flex flex-row md:flex-col gap-2 sm:gap-4 md:gap-5 md:mt-2 w-full md:w-auto justify-around md:justify-center">
+                <button type="button" aria-label="Home" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-white/15 transition cursor-pointer">
+                    <i class="pi pi-home text-lg"></i>
+                </button>
+                <button type="button" aria-label="Calendar Minimal" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-white/15 transition cursor-pointer">
+                    <i class="pi pi-calendar-minus text-lg"></i>
+                </button>
+                <button type="button" aria-label="Active Calendar" class="w-10 h-10 rounded-xl bg-[#2D283E] text-white shadow-lg flex items-center justify-center cursor-pointer">
+                    <i class="pi pi-calendar text-lg"></i>
+                </button>
+                <button type="button" aria-label="Messages" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-white/15 transition cursor-pointer">
+                    <i class="pi pi-comments text-lg"></i>
+                </button>
+                <button type="button" aria-label="Settings" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-white/15 transition cursor-pointer md:mt-4">
+                    <i class="pi pi-cog text-lg"></i>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Logout / Switch account (Desktop only or right-aligned) -->
+        <div class="hidden md:flex">
+            <button type="button" (click)="logout()" aria-label="Log Out" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-white/15 transition cursor-pointer text-white/80 hover:text-white">
+                <i class="pi pi-sign-out text-lg"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main class="order-1 md:order-2 flex-1 p-4 sm:p-6 md:p-8 flex flex-col gap-6 overflow-x-hidden min-w-0">
+
+        <!-- TOP HEADER BAR -->
+        <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">TimeFrame</h1>
+                <p class="text-xs text-white/75 mt-0.5 font-medium">Information designed for accurate insights</p>
+            </div>
+
+            <!-- Header Controls -->
+            <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+                <!-- Filter Tabs -->
+                <!-- <div class="bg-[#7172BD] p-1 rounded-full flex gap-1 shadow-inner">
+                    @for (tab of ['Daily', 'Weekly', 'Monthly']; track tab) {
+                    <button type="button" (click)="setTab(tab)" 
+                        [class.bg-[#2D283E]]="activeTab === tab"
+                        [class.text-white]="activeTab === tab"
+                        class="px-3.5 sm:px-5 py-1.5 rounded-full text-xs font-semibold text-white/80 hover:text-white transition cursor-pointer">
+                        {{ tab }}
+                    </button>
+                    }
+                </div> -->
+
+                <!-- Theme Toggle & Profile Info -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-white text-slate-800 px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-semibold shadow-sm select-none cursor-pointer">
+                        <i class="pi pi-sun text-amber-500 text-sm"></i>
+                        <span>Light</span>
+                    </div>
+
+                    <!-- Notification Button -->
+                    <button type="button" aria-label="Notifications" class="w-8 h-8 rounded-full bg-[#7172BD] flex items-center justify-center hover:bg-white/20 transition cursor-pointer">
+                        <i class="pi pi-bell text-xs"></i>
+                    </button>
+                    
+                    <!-- Avatar -->
+                    <p-avatar shape="circle" size="normal" styleClass="ring-2 ring-white/30"></p-avatar>
+
+                    <!-- Mobile Logout Icon -->
+                    <button type="button" (click)="logout()" aria-label="Log Out" class="md:hidden w-8 h-8 rounded-full bg-[#7172BD] flex items-center justify-center hover:bg-white/20 text-white">
+                        <i class="pi pi-sign-out text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- STATS BANNER -->
+        <section class="flex justify-between gap-4 bg-[#7B7CCB]/40 rounded-2xl p-4 sm:px-6 border border-white/15 backdrop-blur-md">
+            <div>
+                <h2 class="text-xl sm:text-2xl font-bold">My Calendar</h2>
+            </div>
+
+            <!-- <div class="flex flex-wrap items-center justify-between sm:justify-end gap-4 sm:gap-6 md:gap-8"> -->
+                <!-- Workout Metric -->
+                <!-- <div class="min-w-[110px]">
+                    <p class="text-[10px] sm:text-[11px] text-white/70 uppercase tracking-wider font-semibold">Total workout</p>
+                    <p class="text-xl sm:text-2xl font-bold tracking-tight mt-0.5">
+                        3,457 <span class="text-xs font-normal text-white/80">hrs</span>
+                    </p>
+                </div> -->
+
+                <!-- Heart Rate Metric -->
+                <!-- <div class="border-l border-white/20 pl-4 sm:pl-6 min-w-[100px]">
+                    <p class="text-[10px] sm:text-[11px] text-white/70 uppercase tracking-wider font-semibold">Heart rate</p>
+                    <p class="text-xl sm:text-2xl font-bold tracking-tight mt-0.5">
+                        90 <span class="text-xs font-normal text-white/80">bpm</span>
+                    </p>
+                </div> -->
+
+                <!-- New Task Button -->
+                <button pButton type="button" (click)="openTaskDialog()"
+                    class="!bg-[#2D283E] !border-none !text-white !rounded-full px-5 py-2.5 text-xs font-semibold hover:!opacity-90 inline-flex items-center gap-2 cursor-pointer shadow-md w-full sm:w-auto justify-center">
+                    <i class="pi pi-plus text-xs"></i>
+                    <span>New Task</span>
+                </button>
+            <!-- </div> -->
+        </section>
+
+        <!-- MAIN GRID CONTENT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-start">
+
+            <!-- LEFT COLUMN: Mini Calendar & Lists -->
+            <div class="lg:col-span-4 xl:col-span-2 flex flex-col gap-3 w-full">
+
+                <!-- Mini Calendar Card Container -->
+                <div class="bg-white rounded-3xl p-4 shadow-lg w-full flex justify-center overflow-x-auto">
+                    <p-datepicker [(ngModel)]="selectedDate" (onSelect)="onCalendarDateSelect($event)" [inline]="true" styleClass="w-full border-none custom-inline-calendar">
+                    </p-datepicker>
+                </div>
+ 
+                <!-- Tasks Checklist Card -->
+                <div class="bg-white text-slate-500 rounded-3xl p-5 shadow-lg flex flex-col gap-2">
+                    <div class="flex justify-between items-center gap-2 border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-sm text-slate-900 tracking-wide">Tasks</h3>
+                        <p-select [options]="categoryModel" [(ngModel)]="selectedCategoryId" optionLabel="name" [showClear]="true"
+                            optionValue="id" placeholder="All Categories" (onChange)="onCategorySelect($event.value)"
+                            styleClass="text-xs min-w-[130px] !border-slate-200">
+                        </p-select>
+                    </div>
+
+                    <p-contextmenu #taskCm [model]="contextMenuItems"></p-contextmenu>
+                    
+                    <div class="flex flex-col gap-2 max-h-[100px] overflow-y-auto pr-1">
+                        @for (task of taskList; track task.id) {
+                        <div (contextmenu)="onTaskContextMenu($event, task, taskCm)"
+                            class="flex items-center gap-3 text-xs text-slate-700 font-medium hover:bg-slate-50 p-1.5 rounded-lg transition cursor-pointer select-none">
+                            <p-checkbox [(ngModel)]="task.completed" [binary]="true" (onChange)="markTaskAsCompleted(task)"></p-checkbox>
+                            <span class="truncate flex-1" [class.line-through]="task.completed" [class.text-slate-400]="task.completed">
+                                {{ task.title }}
+                            </span>
+                        </div>
+                        } @empty {
+                            <p class="text-xs text-slate-400 italic py-2">No tasks scheduled for today.</p>
+                        }
+                    </div>
+                </div>
+
+                <!-- Categories Checklist Card -->
+                <div class="bg-white text-slate-800 rounded-3xl p-5 shadow-lg flex flex-col gap-2">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-sm text-slate-900 tracking-wide">Categories</h3>
+                        <button type="button" (click)="openCategoryDialog()"
+                            class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1.5 transition cursor-pointer">
+                            <i class="pi pi-plus-circle text-xs"></i>
+                            <span>Add Category</span>
+                        </button>
+                    </div>
+
+                    <p-contextmenu #catCm [model]="contextMenuItems"></p-contextmenu>
+
+                    <div class="flex flex-col gap-2 max-h-[100px] overflow-y-auto pr-1">
+                        @for (category of categoryModel; track category.id) {
+                        <div (contextmenu)="onCategoryContextMenu($event, category, catCm)"
+                            class="flex items-center gap-3 text-xs text-slate-700 font-medium hover:bg-slate-50 p-1.5 rounded-lg transition cursor-pointer select-none">
+                            <p-checkbox [(ngModel)]="category.completed" [binary]="true"></p-checkbox>
+                            <span class="truncate flex-1" [class.line-through]="category.completed" [class.text-slate-400]="category.completed">
+                                {{ category.name }}
+                            </span>
+                        </div>
+                        } @empty {
+                            <p class="text-xs text-slate-400 italic py-2">No categories found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Daily View Schedule Timeline -->
+            <div class="lg:col-span-8 xl:col-span-9 bg-white/10 rounded-3xl p-4 sm:p-6 border border-white/15 flex flex-col justify-between backdrop-blur-md w-full">
+
+                <!-- Daily View Header -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 mb-4 border-b border-white/15">
+                    <div>
+                        <span class="text-[11px] text-white/70 font-semibold uppercase tracking-wider">Schedule Overview</span>
+                        <h3 class="font-bold text-lg sm:text-xl text-white mt-0.5">
+                            {{ selectedDate | date:'fullDate' }}
+                        </h3>
+                    </div>
+
+                    <!-- Day Navigation Controls -->
+                    <div class="flex items-center gap-2 self-end sm:self-auto">
+                        <button type="button" (click)="changeDay(-1)" aria-label="Previous Day"
+                            class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center text-xs hover:bg-white/25 text-white transition cursor-pointer">
+                            <i class="pi pi-chevron-left"></i>
+                        </button>
+                        <button type="button" (click)="goToToday()"
+                            class="px-3 py-1.5 rounded-xl bg-white/15 text-xs font-semibold text-white hover:bg-white/25 transition cursor-pointer">
+                            Today
+                        </button>
+                        <button type="button" (click)="changeDay(1)" aria-label="Next Day"
+                            class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center text-xs hover:bg-white/25 text-white transition cursor-pointer">
+                            <i class="pi pi-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Daily Timeline Grid -->
+                <div class="flex-1 flex flex-col gap-2 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
+                    @for (slot of hourlyTimeSlots; track slot.hour) {
+                    <div class="grid grid-cols-12 gap-3 sm:gap-4 items-start min-h-[50px]">
+
+                        <!-- Time Label -->
+                        <div class="col-span-3 sm:col-span-2 text-right text-[11px] sm:text-xs text-white/75 font-semibold pt-1">
+                            {{ slot.timeLabel }}
+                        </div>
+
+                        <!-- Task Slot Area -->
+                        <div class="col-span-9 sm:col-span-10 border-t border-white/15 pt-1 relative min-h-[64px]">
+                            @if (slot.task; as task) {
+                            <div class="p-3 sm:p-4 rounded-2xl shadow-md text-xs flex justify-between items-center transition hover:translate-y-[-1px] cursor-pointer"
+                                [class.bg-[#D8FF54]]="task.categoryId % 2 === 0"
+                                [class.text-slate-900]="task.categoryId % 2 === 0"
+                                [class.bg-[#8283D3]]="task.categoryId % 2 !== 0"
+                                [class.text-white]="task.categoryId % 2 !== 0">
+
+                                <div class="flex flex-col gap-1 min-w-0 pr-2">
+                                    <span class="font-bold text-sm leading-tight truncate" [class.line-through]="task.completed">
+                                        {{ task.title }}
+                                    </span>
+                                    <p class="text-[11px] opacity-80 font-medium">{{ task.timeRange }}</p>
+                                    @if (task.description) {
+                                    <p class="text-[11px] opacity-75 italic line-clamp-1 mt-0.5">{{ task.description }}</p>
+                                    }
+                                </div>
+
+                                <div class="flex items-center shrink-0">
+                                    <p-checkbox [binary]="true" [(ngModel)]="task.completed"
+                                        (onChange)="markTaskAsCompleted(task)">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            }
+                        </div>
+
+                    </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- CATEGORY FORM MODAL -->
+<p-dialog [(visible)]="categoryDialogVisible" [modal]="true" header="Manage Category" 
+    [style]="{ width: '90vw', maxWidth: '24rem' }" [draggable]="false" [resizable]="false">
+    <div class="flex flex-col gap-4 py-2">
+        <div class="flex flex-col gap-1.5">
+            <label for="name" class="text-xs font-semibold text-slate-700 uppercase tracking-wider">Category Name</label>
+            <input pInputText id="name" [(ngModel)]="categoryName" placeholder="e.g. Work, Gym, Personal"
+                class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-indigo-500" />
+        </div>
+    </div>
+    <ng-template #footer>
+        <div class="flex justify-end gap-2 pt-2">
+            <button type="button" pButton severity="secondary" variant="outlined" class="text-xs !px-4"
+                (click)="categoryDialogVisible = false">Cancel</button>
+            <button type="button" pButton (click)="saveCategory()" class="text-xs !px-5 !bg-indigo-600 !border-indigo-600">Save</button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<!-- TASK CREATE / EDIT DIALOG -->
+<p-dialog [(visible)]="taskDialogVisible" [header]="isEditMode ? 'Edit Task' : 'Create Task'" [modal]="true"
+    [draggable]="false" [resizable]="false" (onHide)="closeTaskDialog()" 
+    [style]="{ width: '92vw', maxWidth: '32rem' }">
+
+    <form [formGroup]="taskForm" (ngSubmit)="saveTask()" class="flex flex-col gap-4 py-1">
+
+        <!-- Task Title -->
+        <div class="flex flex-col gap-1.5">
+            <label for="taskTitle" class="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                Task Title <span class="text-red-500">*</span>
+            </label>
+            <input pInputText id="taskTitle" formControlName="title" placeholder="e.g. Cardio Exercise, Team Sync"
+                class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-slate-800 text-xs focus:ring-2 focus:ring-indigo-500" />
+            @if (taskForm.get('title')?.touched && taskForm.get('title')?.invalid) {
+            <span class="text-red-500 text-[11px]">Task title is required.</span>
+            }
+        </div>
+
+        <!-- Category Dropdown -->
+        <div class="flex flex-col gap-1.5">
+            <label for="taskCategory" class="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                Category <span class="text-red-500">*</span>
+            </label>
+            <p-select id="taskCategory" [options]="categoryModel" formControlName="categoryId" optionLabel="name"
+                optionValue="id" placeholder="Select Category" styleClass="w-full text-xs">
+            </p-select>
+            @if (taskForm.get('categoryId')?.touched && taskForm.get('categoryId')?.invalid) {
+            <span class="text-red-500 text-[11px]">Please select a category.</span>
+            }
+        </div>
+
+        <!-- Description -->
+        <div class="flex flex-col gap-1.5">
+            <label for="taskDescription" class="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                Description
+            </label>
+            <input pInputText id="taskDescription" formControlName="description"
+                placeholder="Optional notes..."
+                class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-slate-800 text-xs focus:ring-2 focus:ring-indigo-500" />
+        </div>
+
+        <!-- Target Date -->
+        <div class="flex flex-col gap-1.5">
+            <label for="taskDueDate" class="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                Target Date
+            </label>
+            <p-datepicker id="taskDueDate" formControlName="dueDate" dateFormat="yy-mm-dd" placeholder="Pick date"
+                styleClass="w-full text-xs">
+            </p-datepicker>
+        </div>
+
+        <!-- Start & End Time Pickers (Responsive Stack on Mobile, Grid on Tablet/Desktop) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="flex flex-col gap-1.5">
+                <label for="taskStartTime" class="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                    Start Time
+                </label>
+                <p-datepicker id="taskStartTime" formControlName="startTime" [timeOnly]="true" hourFormat="12"
+                    placeholder="10:00 AM" styleClass="w-full text-xs">
+                </p-datepicker>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+                <label for="taskEndTime" class="text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                    End Time
+                </label>
+                <p-datepicker id="taskEndTime" formControlName="endTime" [timeOnly]="true" hourFormat="12"
+                    placeholder="11:00 AM" styleClass="w-full text-xs">
+                </p-datepicker>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex justify-end items-center gap-2 pt-4 border-t border-slate-100 mt-2">
+            <button type="button" (click)="closeTaskDialog()"
+                class="text-slate-500 hover:text-slate-800 px-4 py-2 text-xs font-medium transition cursor-pointer">
+                Cancel
+            </button>
+            <button type="submit" [disabled]="isloading"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer shadow-md disabled:opacity-50">
+                {{ isEditMode ? 'Update Task' : 'Save Task' }}
+            </button>
+        </div>
+
+    </form>
+</p-dialog>
